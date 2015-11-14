@@ -1,8 +1,15 @@
 # mufuphlex array-util
 
+
+[![Build Status](https://travis-ci.org/Mufuphlex/array-util.svg)](https://travis-ci.org/Mufuphlex/array-util)
+[![Latest Stable Version](https://poser.pugx.org/mufuphlex/array-util/v/stable)](https://packagist.org/packages/mufuphlex/array-util)
+[![License](https://poser.pugx.org/mufuphlex/array-util/license)](https://packagist.org/packages/mufuphlex/array-util)
+
+
 Array utils - smart&fast array helpers.
 
 These helpers, among other things, provide a <strong>significantly improved</strong> (about <strong>10-30 times faster</strong>) analogues of built-in PHP array functions, like <code>unique()</code> or <code>intersect()</code>.
+
 
 ### `unique()` function
 This is an improved (**30 times faster!**) implementation of standard `array_unique()` PHP function.
