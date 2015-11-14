@@ -1,0 +1,37 @@
+{
+  "name": "mufuphlex/array-util",
+  "type": "library",
+  "version": "0.1",
+  "description": "Array utils - smart&fast array helpers",
+  "keywords": [
+    "array",
+    "array util",
+    "array walk",
+    "array map",
+    "array cut",
+    "array intersect",
+    "array unique",
+    "smart intersect",
+    "smart unique",
+    "fast intersect",
+    "fast unique"
+  ],
+  "minimum-stability": "stable",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "AlexMiroshnikov"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mufuphlex\\Util\\": "src/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=4.5"
+  }
+}
