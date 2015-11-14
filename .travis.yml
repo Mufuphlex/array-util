@@ -8,6 +8,10 @@ php:
   - 7.0
   - hhvm
 
+branches:
+  except:
+    - /^\d\.\d/
+
 install:
   - composer install --no-dev
 
