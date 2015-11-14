@@ -1,4 +1,6 @@
 <?php
+use Mufuphlex\Util\ArrayUtil;
+
 class ArrayUtilTest extends PHPUnit_Framework_TestCase
 {
 	public function testWhitelistSimpleCase()
@@ -34,7 +36,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			)
 		);
 
-		$cutByWhitelist = \Mufuphlex\Util\ArrayUtil::cutByWhitelist($array, $map);
+		$cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -100,7 +102,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			)
 		);
 
-		$cutByWhitelist = \Mufuphlex\Util\ArrayUtil::cutByWhitelist($array, $map);
+		$cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -144,7 +146,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			'string key' => 'unexpected content'
 		);
 
-		$cutByWhitelist = \Mufuphlex\Util\ArrayUtil::cutByWhitelist($array, $map);
+		$cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -166,7 +168,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			0 => 2
 		);
 
-		$cutByWhitelist = \Mufuphlex\Util\ArrayUtil::cutByWhitelist($array, $map);
+		$cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -196,7 +198,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			)
 		);
 
-		$cut = \Mufuphlex\Util\ArrayUtil::cutByBlacklist($array, $map);
+		$cut = ArrayUtil::cutByBlacklist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -234,7 +236,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			),
 		);
 
-		$cut = \Mufuphlex\Util\ArrayUtil::cutByBlacklist($array, $map);
+		$cut = ArrayUtil::cutByBlacklist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -271,7 +273,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			)
 		);
 
-		$cut = \Mufuphlex\Util\ArrayUtil::cutByBlacklist($array, $map);
+		$cut = ArrayUtil::cutByBlacklist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -298,7 +300,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			0 => 2
 		);
 
-		$cut = \Mufuphlex\Util\ArrayUtil::cutByBlacklist($array, $map);
+		$cut = ArrayUtil::cutByBlacklist($array, $map);
 
 		$this->assertEquals(
 			array(
@@ -312,10 +314,10 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 	{
 		$array = array(1,2,3,4,5,1,2,3,1,2,1);
 		$unique = array(1,2,3,4,5);
-		$this->assertEquals($unique, \Mufuphlex\Util\ArrayUtil::unique($array));
+		$this->assertEquals($unique, ArrayUtil::unique($array));
 		$array = array('a','b','a');
 		$unique = array('a', 'b');
-		$this->assertEquals($unique, \Mufuphlex\Util\ArrayUtil::unique($array));
+		$this->assertEquals($unique, ArrayUtil::unique($array));
 	}
 
 	public function testUniqueKeepingKey()
@@ -335,7 +337,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 			'f' => 3
 		);
 
-		$this->assertEquals($unique, \Mufuphlex\Util\ArrayUtil::unique($array, true));
+		$this->assertEquals($unique, ArrayUtil::unique($array, true));
 	}
 
 	public function testIntersect()
@@ -343,13 +345,34 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 		$a = array(1,2,3);
 		$b = array(3,4,5);
 		$expected = array(2 => 3);
-		$this->assertEquals($expected, \Mufuphlex\Util\ArrayUtil::intersect($a, $b));
+		$this->assertEquals($expected, ArrayUtil::intersect($a, $b));
 
 		$a = array(1,2,3,4);
 		$b = array(3,4,5,6);
 		$c = array(4,5,6,7);
 		$expected = array(3 => 4);
-		$this->assertEquals($expected, \Mufuphlex\Util\ArrayUtil::intersect($a, $b, $c));
+		$this->assertEquals($expected, ArrayUtil::intersect($a, $b, $c));
+	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage At least 2 arrays must be passed
+	 */
+	public function testIntersectThrowsExceptionOnlyOneArgument()
+	{
+		$a = array(1,2,3);
+		ArrayUtil::intersect($a);
+	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage All the arguments must be array
+	 */
+	public function testIntersectThrowsExceptionArgumentsMustBeArrays()
+	{
+		$a = array(1,2,3);
+		$b = 123;
+		ArrayUtil::intersect($a, $b);
 	}
 
 	public function testPerformanceUnique()
@@ -374,12 +397,12 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 		echo "\nvia std array_keys:\t".count($res2)." in ".$time;
 
 		$time = -microtime(true);
-		$res3 = \Mufuphlex\Util\ArrayUtil::unique($arr);
+		$res3 = ArrayUtil::unique($arr);
 		$time += microtime(true);
 		echo "\nmufuphlex unique:\t".count($res3)." in ".$time;
 
 		$time = -microtime(true);
-		$res4 = \Mufuphlex\Util\ArrayUtil::unique($arr, true);
+		$res4 = ArrayUtil::unique($arr, true);
 		$time += microtime(true);
 		echo "\npreserving keys:\t".count($res4)." in ".$time;
 	}
@@ -396,7 +419,7 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 		echo "\nstd array_intersect:\t".count($res1)." in ".$time;
 
 		$time = -microtime(true);
-		$res2 = \Mufuphlex\Util\ArrayUtil::intersect($arr, $arr2);
+		$res2 = ArrayUtil::intersect($arr, $arr2);
 		$time += microtime(true);
 		echo "\nmufuphlex intersect:\t".count($res2)." in ".$time;
 	}

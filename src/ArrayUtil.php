@@ -120,6 +120,11 @@ class ArrayUtil
         }
 
         $array2 = func_get_arg(1);
+
+        if (!is_array($array2)) {
+            throw new \InvalidArgumentException('All the arguments must be array');
+        }
+
         $flip = array_flip($array2);
 
         foreach ($array as $key => $value) {
