@@ -1,7 +1,6 @@
 {
   "name": "mufuphlex/array-util",
   "type": "library",
-  "version": "1.0.0",
   "description": "Array utils - smart&fast array helpers",
   "keywords": [
     "array",
