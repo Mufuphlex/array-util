@@ -1,7 +1,7 @@
 {
   "name": "mufuphlex/array-util",
   "type": "library",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Array utils - smart&fast array helpers",
   "keywords": [
     "array",
@@ -17,14 +17,14 @@
     "fast unique"
   ],
   "minimum-stability": "stable",
-  "license": "GPL-2.0",
+  "license": "MIT",
   "authors": [
     {
       "name": "AlexMiroshnikov"
     }
   ],
   "require": {
-    "php": ">=5.3.9"
+    "php": ">=8.0"
   },
   "autoload": {
     "psr-4": {
@@ -32,6 +32,7 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": ">=4.5"
+    "phpunit/phpunit": ">=9",
+    "friendsofphp/php-cs-fixer": "^3.15"
   }
 }

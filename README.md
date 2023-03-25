@@ -14,18 +14,18 @@ These helpers, among other things, provide a <strong>significantly improved</str
 ### `unique()` function
 This is an improved (**30 times faster!**) implementation of standard `array_unique()` PHP function.
 ```php
-$arr = array(1,2,3,1,2,3);
+$arr = [1,2,3,1,2,3];
 $unique = \Mufuphlex\Util\ArrayUtil::unique($arr);
-// array(1,2,3)
+// [1,2,3]
 ```
 ### `intersect()` function
 This is an improved (**10 times faster!**) implementation of standard `array_intersect()` PHP function.
 ```php
-$a = array(1,2,3);
-$b = array(2,3,4);
-$c = array(3,4,5);
+$a = [1,2,3];
+$b = [2,3,4];
+$c = [3,4,5];
 $result = \Mufuphlex\Util\ArrayUtil::intersect($a, $b, $c);
-// array(3)
+// [3]
 ```
 ### <code>cutBy*()</code> functions
 If you need to remove particular elements from an array by elements' keys, `cutByWhitelist(array $array, array $map)` and `cutByBlacklist(array $array, array $map)` can be very useful. `cutByWhitelist()` **leaves** in `$array` only elements which are listed in the `$map` and `cutByBlacklist()` - just in opposite - **removes** from `$array` elements listed in `$map`. Moreover, these functions can not only remove, but also modify `$array`'s members via callbacks - smth like an extended version of standard PHP function `array_walk()`.
