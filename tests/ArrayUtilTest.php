@@ -4,7 +4,7 @@ use Mufuphlex\Util\ArrayUtil;
 
 class ArrayUtilTest extends \PHPUnit\Framework\TestCase
 {
-    public function testWhitelistSimpleCase()
+    public function testWhitelistSimpleCase(): void
     {
         $map = [
             'key' => [
@@ -51,7 +51,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWhitelistRegexCase()
+    public function testWhitelistRegexCase(): void
     {
         $map = [
             '/^(?:one|another)$/' => [
@@ -128,7 +128,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWhitelistClosureCase()
+    public function testWhitelistClosureCase(): void
     {
         $map = [
             0 => [
@@ -182,7 +182,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBlackListSimpleCase()
+    public function testBlackListSimpleCase(): void
     {
         $map = [
             'string' => [
@@ -219,7 +219,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBlackListRegexCase()
+    public function testBlackListRegexCase(): void
     {
         $map = [
             'protocol' => [
@@ -257,7 +257,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBlacklistClosureCase()
+    public function testBlacklistClosureCase(): void
     {
         $map = [
             '/^\d+$/' => [
@@ -318,7 +318,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testUnique()
+    public function testUnique(): void
     {
         $array = [1,2,3,4,5,1,2,3,1,2,1];
         $unique = [1,2,3,4,5];
@@ -328,7 +328,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($unique, ArrayUtil::unique($array));
     }
 
-    public function testUniqueKeepingKey()
+    public function testUniqueKeepingKey(): void
     {
         $array = [
             'a' => 1,
@@ -348,7 +348,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($unique, ArrayUtil::unique($array, true));
     }
 
-    public function testIntersect()
+    public function testIntersect(): void
     {
         $a = [1,2,3];
         $b = [3,4,5];
@@ -379,7 +379,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         ArrayUtil::intersect($a, $b);
     }
 
-    public function testPerformanceUnique()
+    public function testPerformanceUnique(): void
     {
         $this->expectNotToPerformAssertions();
 
@@ -413,7 +413,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         echo "\npreserving keys:\t".count($res4)." in ".$time;
     }
 
-    public function testPerformanceIntersect()
+    public function testPerformanceIntersect(): void
     {
         $this->expectNotToPerformAssertions();
 

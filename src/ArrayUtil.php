@@ -2,17 +2,9 @@
 
 namespace Mufuphlex\Util;
 
-/**
- * Class ArrayUtil
- */
 class ArrayUtil
 {
-    /**
-     * @param array $array
-     * @param array $map
-     * @return array
-     */
-    public static function cutByWhitelist(array &$array, array $map)
+    public static function cutByWhitelist(array &$array, array $map): array
     {
         foreach ($array as $key => $value) {
             if (isset($map[$key])) {
@@ -46,12 +38,7 @@ class ArrayUtil
         return $array;
     }
 
-    /**
-     * @param array $array
-     * @param array $map
-     * @return array
-     */
-    public static function cutByBlacklist(array &$array, array $map)
+    public static function cutByBlacklist(array &$array, array $map): array
     {
         $mapKeys = array_keys($map);
 
@@ -89,12 +76,7 @@ class ArrayUtil
         return $array;
     }
 
-    /**
-     * @param array $array
-     * @param bool $keepKeys
-     * @return array
-     */
-    public static function unique(array $array, $keepKeys = false)
+    public static function unique(array $array, bool $keepKeys = false): array
     {
         if ($keepKeys) {
             $array = array_reverse($array, true);
@@ -109,11 +91,7 @@ class ArrayUtil
         return array_flip($flip);
     }
 
-    /**
-     * @param array $array , $array2[, $array3, ...]
-     * @return array
-     */
-    public static function intersect(array $array)
+    public static function intersect(array $array): array
     {
         if (($argsCnt = func_num_args()) < 2) {
             throw new \InvalidArgumentException('At least 2 arrays must be passed');
