@@ -137,7 +137,7 @@ class ArrayUtil
             $args = func_get_args();
             $args = array_slice($args, 2);
             array_unshift($args, $array);
-            return call_user_func_array(array(__CLASS__, __FUNCTION__), $args);
+            return call_user_func_array([__CLASS__, __FUNCTION__], $args);
         }
 
         return $array;

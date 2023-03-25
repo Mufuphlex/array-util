@@ -6,359 +6,359 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
 {
     public function testWhitelistSimpleCase()
     {
-        $map = array(
-            'key' => array(
-                'value' => array(
-                    'low level' => true
-                )
-            )
-        );
+        $map = [
+            'key' => [
+                'value' => [
+                    'low level' => true,
+                ],
+            ],
+        ];
 
-        $array = array(
-            'key' => array(
-                'value' => array(
+        $array = [
+            'key' => [
+                'value' => [
                     'low level' => 123,
-                    'another low level' => 456
-                ),
-                'another value' => array(
+                    'another low level' => 456,
+                ],
+                'another value' => [
                     'low level' => 789,
-                    'another low level' => 'string'
-                )
-            ),
-            'another key' => array(
-                'value' => array(
+                    'another low level' => 'string',
+                ],
+            ],
+            'another key' => [
+                'value' => [
                     'low level' => 1234,
-                    'another low level' => 4567
-                ),
-                'another value' => array(
+                    'another low level' => 4567,
+                ],
+                'another value' => [
                     'low level' => 7890,
-                    'another low level' => 'another string'
-                )
-            )
-        );
+                    'another low level' => 'another string',
+                ],
+            ],
+        ];
 
         $cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
         $this->assertEquals(
-            array(
-                'key' => array(
-                    'value' => array(
-                        'low level' => 123
-                    )
-                )
-            ),
+            [
+                'key' => [
+                    'value' => [
+                        'low level' => 123,
+                    ],
+                ],
+            ],
             $cutByWhitelist
         );
     }
 
     public function testWhitelistRegexCase()
     {
-        $map = array(
-            '/^(?:one|another)$/' => array(
-                '/\d+/' => array(
-                    'low level' => true
-                )
-            )
-        );
+        $map = [
+            '/^(?:one|another)$/' => [
+                '/\d+/' => [
+                    'low level' => true,
+                ],
+            ],
+        ];
 
-        $array = array(
-            'one another' => array(
-                1 => array(
-                    'low level' => 'unexpected due to regex'
-                ),
-                'not numeric' => array(
+        $array = [
+            'one another' => [
+                1 => [
+                    'low level' => 'unexpected due to regex',
+                ],
+                'not numeric' => [
                     'low level' => 'unexpected due to not numeric',
-                ),
-                2 => array(
+                ],
+                2 => [
                     'low level' => 'unexpected due to regex as well',
-                ),
-            ),
-            'one' => array(
-                3 => array(
+                ],
+            ],
+            'one' => [
+                3 => [
                     'the first low level' => 'unexpected due to key',
-                    'low level' => 'low level in one - 1'
-                ),
-                'not numeric' => array(
+                    'low level' => 'low level in one - 1',
+                ],
+                'not numeric' => [
                     'low level' => 'unexpected due to not numeric',
-                    'another low level' => 'unexpected in one'
-                ),
-                4 => array(
+                    'another low level' => 'unexpected in one',
+                ],
+                4 => [
                     'low level' => 'low level in one - 2',
                     'the second low level' => 'unexpected due to key',
-                )
-            ),
-            'another' => array(
-                5 => array(
+                ],
+            ],
+            'another' => [
+                5 => [
                     'the first low level' => 'unexpected due to key',
-                    'low level' => 'low level in another - 1'
-                ),
-                'not numeric' => array(
+                    'low level' => 'low level in another - 1',
+                ],
+                'not numeric' => [
                     'low level' => 'unexpected due to not numeric',
-                    'another low level' => 'unexpected in another'
-                ),
-                6 => array(
+                    'another low level' => 'unexpected in another',
+                ],
+                6 => [
                     'low level' => 'low level in another - 2',
                     'the second low level' => 'unexpected due to key',
-                )
-            )
-        );
+                ],
+            ],
+        ];
 
         $cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
         $this->assertEquals(
-            array(
-                'one' => array(
-                    3 => array(
-                        'low level' => 'low level in one - 1'
-                    ),
-                    4 => array(
-                        'low level' => 'low level in one - 2'
-                    )
-                ),
-                'another' => array(
-                    5 => array(
-                        'low level' => 'low level in another - 1'
-                    ),
-                    6 => array(
-                        'low level' => 'low level in another - 2'
-                    )
-                )
-            ),
+            [
+                'one' => [
+                    3 => [
+                        'low level' => 'low level in one - 1',
+                    ],
+                    4 => [
+                        'low level' => 'low level in one - 2',
+                    ],
+                ],
+                'another' => [
+                    5 => [
+                        'low level' => 'low level in another - 1',
+                    ],
+                    6 => [
+                        'low level' => 'low level in another - 2',
+                    ],
+                ],
+            ],
             $cutByWhitelist
         );
     }
 
     public function testWhitelistClosureCase()
     {
-        $map = array(
-            0 => array(
+        $map = [
+            0 => [
                 '/\d+/' => function ($arg) {
                     return $arg*2+1;
-                }
-            )
-        );
+                },
+            ],
+        ];
 
-        $array = array(
-            array(
+        $array = [
+            [
                 0,
                 1,
                 2,
-                'internal string key' => 'unexpected internal content'
-            ),
-            'string key' => 'unexpected content'
-        );
+                'internal string key' => 'unexpected internal content',
+            ],
+            'string key' => 'unexpected content',
+        ];
 
         $cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
         $this->assertEquals(
-            array(
-                array(
+            [
+                [
                     1,
                     3,
-                    5
-                )
-            ),
+                    5,
+                ],
+            ],
             $cutByWhitelist
         );
 
-        $map = array(
+        $map = [
             0 => function ($arg) {
                 return $arg+2;
-            }
-        );
+            },
+        ];
 
-        $array = array(
+        $array = [
             'not numeric' => 1,
-            0 => 2
-        );
+            0 => 2,
+        ];
 
         $cutByWhitelist = ArrayUtil::cutByWhitelist($array, $map);
 
         $this->assertEquals(
-            array(
-                0 => 4
-            ),
+            [
+                0 => 4,
+            ],
             $cutByWhitelist
         );
     }
 
     public function testBlackListSimpleCase()
     {
-        $map = array(
-            'string' => array(
-                2 => true
-            )
-        );
+        $map = [
+            'string' => [
+                2 => true,
+            ],
+        ];
 
-        $array = array(
-            array(
-                2 => array(
-                    'expected'
-                )
-            ),
-            'string' => array(
+        $array = [
+            [
+                2 => [
+                    'expected',
+                ],
+            ],
+            'string' => [
                 'expected',
-                2 => 'unexpected'
-            )
-        );
+                2 => 'unexpected',
+            ],
+        ];
 
         $cut = ArrayUtil::cutByBlacklist($array, $map);
 
         $this->assertEquals(
-            array(
-                array(
-                    2 => array(
-                        'expected'
-                    )
-                ),
-                'string' => array(
-                    'expected'
-                )
-            ),
+            [
+                [
+                    2 => [
+                        'expected',
+                    ],
+                ],
+                'string' => [
+                    'expected',
+                ],
+            ],
             $cut
         );
     }
 
     public function testBlackListRegexCase()
     {
-        $map = array(
-            'protocol' => array(
-                '/https?/' => true
-            )
-        );
+        $map = [
+            'protocol' => [
+                '/https?/' => true,
+            ],
+        ];
 
-        $array = array(
-            'not protocol' => array(
+        $array = [
+            'not protocol' => [
                 'http' => 'expected',
                 'https' => 'expected too',
-                'ftp' => 'expected as well'
-            ),
-            'protocol' => array(
+                'ftp' => 'expected as well',
+            ],
+            'protocol' => [
                 'http' => 'unexpected',
                 'https' => 'unexpected too',
-                'ftp' => 'expected'
-            ),
-        );
+                'ftp' => 'expected',
+            ],
+        ];
 
         $cut = ArrayUtil::cutByBlacklist($array, $map);
 
         $this->assertEquals(
-            array(
-                'not protocol' => array(
+            [
+                'not protocol' => [
                     'http' => 'expected',
                     'https' => 'expected too',
-                    'ftp' => 'expected as well'
-                ),
-                'protocol' => array(
-                    'ftp' => 'expected'
-                )
-            ),
+                    'ftp' => 'expected as well',
+                ],
+                'protocol' => [
+                    'ftp' => 'expected',
+                ],
+            ],
             $cut
         );
     }
 
     public function testBlacklistClosureCase()
     {
-        $map = array(
-            '/^\d+$/' => array(
+        $map = [
+            '/^\d+$/' => [
                 1 => function ($arg) {
                     return $arg+5;
-                }
-            )
-        );
+                },
+            ],
+        ];
 
-        $array = array(
+        $array = [
             'string' => 'expected',
-            array(
+            [
                 1,
-                2
-            ),
-            array(
+                2,
+            ],
+            [
                 3,
-                4
-            )
-        );
+                4,
+            ],
+        ];
 
         $cut = ArrayUtil::cutByBlacklist($array, $map);
 
         $this->assertEquals(
-            array(
+            [
                 'string' => 'expected',
-                array(
+                [
                     1,
-                    7
-                ),
-                array(
+                    7,
+                ],
+                [
                     3,
-                    9
-                )
-            ),
+                    9,
+                ],
+            ],
             $cut
         );
 
-        $map = array(
+        $map = [
             '/^\d+$/' => function ($arg) {
                 return $arg+2;
             },
-            'not numeric' => true
-        );
+            'not numeric' => true,
+        ];
 
-        $array = array(
+        $array = [
             'not numeric' => 1,
-            0 => 2
-        );
+            0 => 2,
+        ];
 
         $cut = ArrayUtil::cutByBlacklist($array, $map);
 
         $this->assertEquals(
-            array(
-                0 => 4
-            ),
+            [
+                0 => 4,
+            ],
             $cut
         );
     }
 
     public function testUnique()
     {
-        $array = array(1,2,3,4,5,1,2,3,1,2,1);
-        $unique = array(1,2,3,4,5);
+        $array = [1,2,3,4,5,1,2,3,1,2,1];
+        $unique = [1,2,3,4,5];
         $this->assertEquals($unique, ArrayUtil::unique($array));
-        $array = array('a','b','a');
-        $unique = array('a', 'b');
+        $array = ['a','b','a'];
+        $unique = ['a', 'b'];
         $this->assertEquals($unique, ArrayUtil::unique($array));
     }
 
     public function testUniqueKeepingKey()
     {
-        $array = array(
+        $array = [
             'a' => 1,
             'b' => 2,
             'c' => 1,
             'd' => 2,
             'e' => 1,
-            'f' => 3
-        );
+            'f' => 3,
+        ];
 
-        $unique = array(
+        $unique = [
             'a' => 1,
             'b' => 2,
-            'f' => 3
-        );
+            'f' => 3,
+        ];
 
         $this->assertEquals($unique, ArrayUtil::unique($array, true));
     }
 
     public function testIntersect()
     {
-        $a = array(1,2,3);
-        $b = array(3,4,5);
-        $expected = array(2 => 3);
+        $a = [1,2,3];
+        $b = [3,4,5];
+        $expected = [2 => 3];
         $this->assertEquals($expected, ArrayUtil::intersect($a, $b));
 
-        $a = array(1,2,3,4);
-        $b = array(3,4,5,6);
-        $c = array(4,5,6,7);
-        $expected = array(3 => 4);
+        $a = [1,2,3,4];
+        $b = [3,4,5,6];
+        $c = [4,5,6,7];
+        $expected = [3 => 4];
         $this->assertEquals($expected, ArrayUtil::intersect($a, $b, $c));
     }
 
@@ -366,7 +366,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('At least 2 arrays must be passed');
-        $a = array(1,2,3);
+        $a = [1,2,3];
         ArrayUtil::intersect($a);
     }
 
@@ -374,7 +374,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('All the arguments must be array');
-        $a = array(1,2,3);
+        $a = [1,2,3];
         $b = 123;
         ArrayUtil::intersect($a, $b);
     }
@@ -394,7 +394,7 @@ class ArrayUtilTest extends \PHPUnit\Framework\TestCase
         echo "\nstd array_unique:\t".count($res1)." in ".$time;
 
         $time = -microtime(true);
-        $res2 = array();
+        $res2 = [];
         foreach ($arr as $key=>$val) {
             $res2[$val] = true;
         }
