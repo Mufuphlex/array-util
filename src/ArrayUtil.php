@@ -16,7 +16,7 @@ class ArrayUtil
     {
         foreach ($array as $key => $value) {
             if (isset($map[$key])) {
-                if (is_array($map[$key]) AND is_array($value)) {
+                if (is_array($map[$key]) and is_array($value)) {
                     $array[$key] = self::cutByWhitelist($value, $map[$key]);
                 } elseif ($map[$key] instanceof \Closure) {
                     $array[$key] = $map[$key]($value);
@@ -26,7 +26,7 @@ class ArrayUtil
                 $mapKeys = array_keys($map);
 
                 foreach ($mapKeys as $mapKey) {
-                    if (preg_match('@^/.+/[siu]*$@', $mapKey) AND preg_match($mapKey, $key)) {
+                    if (preg_match('@^/.+/[siu]*$@', $mapKey) and preg_match($mapKey, $key)) {
                         if (is_array($map[$mapKey])) {
                             $array[$key] = self::cutByWhitelist($value, $map[$mapKey]);
                         } elseif ($map[$mapKey] instanceof \Closure) {
@@ -68,7 +68,7 @@ class ArrayUtil
                 }
             } else {
                 foreach ($mapKeys as $mapKey) {
-                    if (preg_match('@^/.+/[siu]*$@', $mapKey) AND preg_match($mapKey, $key)) {
+                    if (preg_match('@^/.+/[siu]*$@', $mapKey) and preg_match($mapKey, $key)) {
                         if (is_array($map[$mapKey])) {
                             $array[$key] = self::cutByBlacklist($value, $map[$mapKey]);
                         } elseif ($map[$mapKey] instanceof \Closure) {
