@@ -1,7 +1,7 @@
 <?php
 use Mufuphlex\Util\ArrayUtil;
 
-class ArrayUtilTest extends PHPUnit_Framework_TestCase
+class ArrayUtilTest extends \PHPUnit\Framework\TestCase
 {
 	public function testWhitelistSimpleCase()
 	{
@@ -354,22 +354,18 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($expected, ArrayUtil::intersect($a, $b, $c));
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage At least 2 arrays must be passed
-	 */
-	public function testIntersectThrowsExceptionOnlyOneArgument()
+	public function testIntersectThrowsExceptionOnlyOneArgument(): void
 	{
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('At least 2 arrays must be passed');
 		$a = array(1,2,3);
 		ArrayUtil::intersect($a);
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage All the arguments must be array
-	 */
-	public function testIntersectThrowsExceptionArgumentsMustBeArrays()
+	public function testIntersectThrowsExceptionArgumentsMustBeArrays(): void
 	{
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('All the arguments must be array');
 		$a = array(1,2,3);
 		$b = 123;
 		ArrayUtil::intersect($a, $b);
@@ -377,6 +373,8 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 
 	public function testPerformanceUnique()
 	{
+        $this->expectNotToPerformAssertions();
+
 		$max = 100000;
 		$arr = range(1,$max,3);
 		$arr2 = range(1,$max,2);
@@ -409,6 +407,8 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 
 	public function testPerformanceIntersect()
 	{
+        $this->expectNotToPerformAssertions();
+
 		$max = 100000;
 		$arr = range(1,$max,3);
 		$arr2 = range(1,$max,2);
