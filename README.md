@@ -1,7 +1,6 @@
 # mufuphlex array-util
 
 
-[![Build Status](https://travis-ci.org/Mufuphlex/array-util.svg)](https://travis-ci.org/Mufuphlex/array-util)
 [![Latest Stable Version](https://poser.pugx.org/mufuphlex/array-util/v/stable)](https://packagist.org/packages/mufuphlex/array-util)
 [![License](https://poser.pugx.org/mufuphlex/array-util/license)](https://packagist.org/packages/mufuphlex/array-util)
 

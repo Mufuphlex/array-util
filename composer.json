@@ -1,7 +1,6 @@
 {
   "name": "mufuphlex/array-util",
   "type": "library",
-  "version": "1.0.0",
   "description": "Array utils - smart&fast array helpers",
   "keywords": [
     "array",
@@ -34,5 +33,8 @@
   "require-dev": {
     "phpunit/phpunit": ">=9",
     "friendsofphp/php-cs-fixer": "^3.15"
+  },
+  "scripts": {
+    "test-with-coverage-text": "vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-text"
   }
 }
